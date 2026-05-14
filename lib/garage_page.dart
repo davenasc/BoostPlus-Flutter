@@ -54,7 +54,7 @@ class _GaragePageState extends State<GaragePage> {
               _buildPartsStatusHeader(),
               _buildPartsGrid(colorScheme),
               _buildMaintenanceTips(colorScheme),
-              const SizedBox(height: 100), // Espaço para o FAB
+              const SizedBox(height: 100),
             ],
           ),
         ),
