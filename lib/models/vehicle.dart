@@ -17,7 +17,6 @@ class Vehicle {
     this.customerId,
   });
 
-  // Converte JSON (do banco) para o Objeto
   factory Vehicle.fromJson(Map<String, dynamic> json) {
     return Vehicle(
       id: json['id_veiculo'],
@@ -30,7 +29,6 @@ class Vehicle {
     );
   }
 
-  // Converte o Objeto para Map (para salvar no banco)
   Map<String, dynamic> toJson() {
     return {
       'placa': plate,

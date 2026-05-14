@@ -45,7 +45,6 @@ class _GaragePageState extends State<GaragePage> {
       backgroundColor: const Color(0xFFF8FAFC),
       body: SafeArea(
         child: SingleChildScrollView(
-          // Permite o scroll da tela inteira
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -82,8 +81,6 @@ class _GaragePageState extends State<GaragePage> {
       ),
     );
   }
-
-  // --- COMPONENTES DA TELA ---
 
   Widget _buildHeader() {
     return const Padding(
@@ -257,10 +254,8 @@ class _GaragePageState extends State<GaragePage> {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: GridView.count(
-        shrinkWrap:
-            true, // Importante: faz o grid ocupar apenas o espaço necessário
-        physics:
-            const NeverScrollableScrollPhysics(), // O scroll será controlado pelo SingleChildScrollView pai
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         crossAxisCount: 2,
         mainAxisSpacing: 12,
         crossAxisSpacing: 12,
