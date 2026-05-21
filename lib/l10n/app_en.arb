@@ -1,0 +1,74 @@
+{
+  "@@locale": "en",
+  "loginWelcome": "Welcome back",
+  "loginSubtitle": "Sign in to access your garage",
+  "loginUsername": "USERNAME",
+  "loginPassword": "PASSWORD",
+  "loginSignIn": "Sign In",
+  
+  "garageVehicleMaintenance": "Vehicle Maintenance",
+  "garageMyGarage": "My Garage",
+  "garageOdometer": "ODOMETER",
+  "garagePartStatus": "Part Status",
+  "garageSeeAll": "See All",
+  "garageUpdateKm": "Update KM",
+  "garageMaintenanceTips": "MAINTENANCE TIPS",
+  "garageTips1": "Check tire pressure every 15 days.",
+  "garageTips2": "Change engine oil every 10,000 km.",
+  "garageTips3": "Check brake fluid level monthly.",
+  "garageTips4": "Rotate tires to ensure even wear.",
+  
+  "partsAllParts": "All Parts",
+  "partRemaining": "{km} km remaining",
+  "@partRemaining": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "partStatusOk": "OK",
+  "partStatusWarning": "WARNING",
+  
+  "historyMaintenanceHistory": "Maintenance History",
+  "historyTimeline": "Timeline of every service",
+  
+  "profileTitle": "Profile",
+  "profileVehicles": "Vehicles",
+  "profileServices": "Services",
+  "profileAccount": "ACCOUNT",
+  "profileNotifications": "Notifications",
+  "profilePrivacy": "Privacy",
+  "profileHelpSupport": "Help & Support",
+  "profileLanguage": "Language",
+  "profileSignOut": "Sign Out",
+
+  "langPt": "Português",
+  "langEn": "English",
+  "langSelect": "Select language",
+
+  "partOilChange": "Engine Oil",
+  "partBrakePads": "Brakes",
+  "partTires": "Tires",
+  "partBattery": "Battery",
+  "partFilters": "Filters",
+  "partCooling": "Cooling",
+
+  "navGarage": "Garage",
+  "navHistory": "History",
+  "navProfile": "Profile",
+
+  "dialogUpdateKmTitle": "Update Kilometrage",
+  "dialogUpdateKmLastRecorded": "Last recorded: {km} km",
+  "@dialogUpdateKmLastRecorded": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "dialogUpdateKmDescription": "Keep your odometer up to date to get accurate maintenance alerts.",
+  "dialogUpdateKmCancel": "Cancel",
+  "dialogUpdateKmSave": "Save",
+  "dialogUpdateKmError": "Invalid value or less than current."
+}

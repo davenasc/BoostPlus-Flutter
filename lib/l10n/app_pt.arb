@@ -1,0 +1,74 @@
+{
+  "@@locale": "pt",
+  "loginWelcome": "Bem-vindo de volta",
+  "loginSubtitle": "Faça login para acessar sua garagem",
+  "loginUsername": "USUÁRIO",
+  "loginPassword": "SENHA",
+  "loginSignIn": "Entrar",
+  
+  "garageVehicleMaintenance": "Manutenção de Veículos",
+  "garageMyGarage": "Minha Garagem",
+  "garageOdometer": "ODÔMETRO",
+  "garagePartStatus": "Status das peças",
+  "garageSeeAll": "Ver tudo",
+  "garageUpdateKm": "Atualizar KM",
+  "garageMaintenanceTips": "DICAS DE MANUTENÇÃO",
+  "garageTips1": "Verifique a pressão dos pneus a cada 15 dias.",
+  "garageTips2": "Troque o óleo do motor a cada 10.000 km.",
+  "garageTips3": "Verifique o nível do fluido de freio mensalmente.",
+  "garageTips4": "Faça o rodízio dos pneus para garantir um desgaste uniforme.",
+  
+  "partsAllParts": "Todas as Peças",
+  "partRemaining": "{km} km restantes",
+  "@partRemaining": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "partStatusOk": "OK",
+  "partStatusWarning": "ATENÇÃO",
+  
+  "historyMaintenanceHistory": "Histórico de Manutenção",
+  "historyTimeline": "Linha do tempo de cada serviço",
+  
+  "profileTitle": "Perfil",
+  "profileVehicles": "Veículos",
+  "profileServices": "Serviços",
+  "profileAccount": "CONTA",
+  "profileNotifications": "Notificações",
+  "profilePrivacy": "Privacidade",
+  "profileHelpSupport": "Ajuda e Suporte",
+  "profileLanguage": "Idioma",
+  "profileSignOut": "Sair",
+
+  "langPt": "Português",
+  "langEn": "English",
+  "langSelect": "Selecione o idioma",
+
+  "partOilChange": "Óleo do motor",
+  "partBrakePads": "Freios",
+  "partTires": "Pneus",
+  "partBattery": "Bateria",
+  "partFilters": "Filtros",
+  "partCooling": "Arrefecimento",
+
+  "navGarage": "Garagem",
+  "navHistory": "Histórico",
+  "navProfile": "Perfil",
+
+  "dialogUpdateKmTitle": "Atualizar Quilometragem",
+  "dialogUpdateKmLastRecorded": "Último registro: {km} km",
+  "@dialogUpdateKmLastRecorded": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "dialogUpdateKmDescription": "Mantenha seu hodômetro atualizado para receber alertas precisos de manutenção.",
+  "dialogUpdateKmCancel": "Cancelar",
+  "dialogUpdateKmSave": "Salvar",
+  "dialogUpdateKmError": "Valor inválido ou menor que o atual."
+}
