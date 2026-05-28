@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:boost_plus/l10n/app_localizations.dart';
+import '../services/firebase_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,6 +12,38 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _backendService = BackendService();
+  bool _isLoading = false;
+  String? _errorMessage;
+
+  Future<void> _handleLogin() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      await _backendService.login(
+        _usernameController.text.trim(),
+        _passwordController.text.trim(),
+      );
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _errorMessage = e.toString();
+        });
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,16 +107,19 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       const SizedBox(height: 24),
+                      if (_errorMessage != null) ...[
+                        Text(_errorMessage!, style: const TextStyle(color: Colors.red, fontSize: 14)),
+                        const SizedBox(height: 16),
+                      ],
                       ElevatedButton(
-                        onPressed: () {
-                          // Navigate to AppShell after login
-                          Navigator.pushReplacementNamed(context, '/home');
-                        },
+                        onPressed: _isLoading ? null : _handleLogin,
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                         ),
-                        child: Text(l10n.loginSignIn),
+                        child: _isLoading 
+                            ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                            : Text(l10n.loginSignIn),
                       ),
                     ],
                   ),

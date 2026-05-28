@@ -2,12 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:boost_plus/l10n/app_localizations.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'services/firebase_service.dart';
 
 import 'screens/login_page.dart';
 import 'screens/app_shell.dart';
 import 'screens/parts_page.dart';
 
-void main() => runApp(const BoostPlusApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  
+  // Popula o banco com os usuários de teste (CPF/Email) caso esteja vazio
+  final backendService = BackendService();
+  await backendService.seedDatabase();
+
+  runApp(const BoostPlusApp());
+}
 
 class BoostPlusApp extends StatefulWidget {
   const BoostPlusApp({super.key});

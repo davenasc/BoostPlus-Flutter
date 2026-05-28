@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "71081961038",
+    "project_id": "boost-871f2",
+    "storage_bucket": "boost-871f2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71081961038:android:05da41b47e3cd3aba9c51f",
+        "android_client_info": {
+          "package_name": "com.example.boost_plus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEq_F0o9PN6Ypz1E2saHrJzG3H9r8Y1ck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

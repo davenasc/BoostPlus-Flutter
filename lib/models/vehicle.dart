@@ -1,42 +1,38 @@
 class Vehicle {
-  final int? id;
+  final String id;
   final String plate;
   final String brand;
   final String model;
   final int year;
   final int currentKm;
-  final String? customerId;
 
   Vehicle({
-    this.id,
+    required this.id,
     required this.plate,
     required this.brand,
     required this.model,
     required this.year,
     required this.currentKm,
-    this.customerId,
   });
 
-  factory Vehicle.fromJson(Map<String, dynamic> json) {
+  factory Vehicle.fromFirestore(Map<String, dynamic> data, String documentId) {
     return Vehicle(
-      id: json['id_veiculo'],
-      plate: json['placa'],
-      brand: json['marca'],
-      model: json['modelo'],
-      year: json['ano'],
-      currentKm: json['km_atual'],
-      customerId: json['id_cliente'],
+      id: documentId,
+      plate: data['placa'] ?? '',
+      brand: data['marca'] ?? '',
+      model: data['modelo'] ?? '',
+      year: data['ano'] ?? 0,
+      currentKm: data['km_atual'] ?? 0,
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toFirestore() {
     return {
       'placa': plate,
       'marca': brand,
       'modelo': model,
       'ano': year,
       'km_atual': currentKm,
-      if (customerId != null) 'id_cliente': customerId,
     };
   }
 }
