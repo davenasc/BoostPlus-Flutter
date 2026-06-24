@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(32),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 20,
                       offset: const Offset(0, 10),
                     ),
@@ -94,7 +94,6 @@ class _LoginPageState extends State<LoginPage> {
                       controller: _userController,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.person_outline),
-                        hintText: 'admin',
                         filled: true,
                         fillColor: const Color(0xFFEBF2F9),
                         border: OutlineInputBorder(
@@ -118,7 +117,6 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: true,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.lock_outline),
-                        hintText: '••••••••',
                         filled: true,
                         fillColor: const Color(0xFFEBF2F9),
                         border: OutlineInputBorder(

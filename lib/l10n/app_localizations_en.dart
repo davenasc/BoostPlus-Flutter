@@ -159,4 +159,122 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dialogUpdateKmError => 'Invalid value or less than current.';
+
+  @override
+  String get historyOS => 'Service Order';
+
+  @override
+  String historyOSWithNumber(String osNumber) {
+    return 'Service Order #$osNumber';
+  }
+
+  @override
+  String get historyOSDetails => 'OS Details';
+
+  @override
+  String historyMechanic(String mechanic) {
+    return 'Mechanic: $mechanic';
+  }
+
+  @override
+  String get historyReplacedParts => 'Parts & Services Replaced';
+
+  @override
+  String historyValidity(String km, String months) {
+    return 'Validity: $km km or $months months';
+  }
+
+  @override
+  String get historyNoVehicleSelected => 'No vehicle selected.';
+
+  @override
+  String get historyNoHistoryFound => 'No maintenance history found.';
+
+  @override
+  String get notificationTitle => 'Maintenance Alert ⚠️';
+
+  @override
+  String notificationBody(String partName, String vehicleName, String percent) {
+    return 'The part \"$partName\" of your $vehicleName has only $percent% of remaining life. Schedule a service!';
+  }
+
+  @override
+  String get loginNoAccount => 'Don\'t have an account? Sign Up';
+
+  @override
+  String get loginSignUp => 'Sign Up';
+
+  @override
+  String get signUpTitle => 'Create Account';
+
+  @override
+  String get signUpSubtitle => 'Fill in the details to register';
+
+  @override
+  String get signUpName => 'FULL NAME';
+
+  @override
+  String get signUpCpf => 'CPF (numbers only)';
+
+  @override
+  String get signUpEmail => 'EMAIL';
+
+  @override
+  String get signUpPassword => 'PASSWORD';
+
+  @override
+  String get signUpConfirmPassword => 'CONFIRM PASSWORD';
+
+  @override
+  String get signUpButton => 'Register';
+
+  @override
+  String get signUpPasswordMismatch => 'Passwords do not match.';
+
+  @override
+  String get signUpSuccess => 'Account created successfully!';
+
+  @override
+  String signUpError(String error) {
+    return 'Error creating account: $error';
+  }
+
+  @override
+  String get profileEditTitle => 'Edit Profile';
+
+  @override
+  String get profileEditName => 'Full Name';
+
+  @override
+  String get profileEditCpf => 'CPF';
+
+  @override
+  String get profileEditSave => 'Save';
+
+  @override
+  String get profileEditCancel => 'Cancel';
+
+  @override
+  String get garageAddVehicle => 'Add Vehicle';
+
+  @override
+  String get garageAddVehicleTitle => 'Register Vehicle';
+
+  @override
+  String get garageAddPlate => 'Plate (e.g. ABC-1234)';
+
+  @override
+  String get garageAddBrand => 'Brand';
+
+  @override
+  String get garageAddModel => 'Model';
+
+  @override
+  String get garageAddYear => 'Year';
+
+  @override
+  String get garageAddInitialKm => 'Current Mileage (Odometer)';
+
+  @override
+  String get garageAddSuccess => 'Vehicle registered successfully!';
 }

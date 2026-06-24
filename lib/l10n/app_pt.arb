@@ -70,5 +70,87 @@
   "dialogUpdateKmDescription": "Mantenha seu hodômetro atualizado para receber alertas precisos de manutenção.",
   "dialogUpdateKmCancel": "Cancelar",
   "dialogUpdateKmSave": "Salvar",
-  "dialogUpdateKmError": "Valor inválido ou menor que o atual."
+  "dialogUpdateKmError": "Valor inválido ou menor que o atual.",
+
+  "historyOS": "Ordem de Serviço",
+  "historyOSWithNumber": "Ordem de Serviço #{osNumber}",
+  "@historyOSWithNumber": {
+    "placeholders": {
+      "osNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "historyOSDetails": "Detalhes da OS",
+  "historyMechanic": "Mecânico: {mechanic}",
+  "@historyMechanic": {
+    "placeholders": {
+      "mechanic": {
+        "type": "String"
+      }
+    }
+  },
+  "historyReplacedParts": "Peças & Serviços Executados",
+  "historyValidity": "Validade: {km} km ou {months} meses",
+  "@historyValidity": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      },
+      "months": {
+        "type": "String"
+      }
+    }
+  },
+  "historyNoVehicleSelected": "Nenhum veículo selecionado.",
+  "historyNoHistoryFound": "Nenhum histórico de manutenção encontrado.",
+
+  "notificationTitle": "Alerta de Manutenção ⚠️",
+  "notificationBody": "A peça \"{partName}\" do seu {vehicleName} está com apenas {percent}% da duração restante. Agende uma revisão!",
+  "@notificationBody": {
+    "placeholders": {
+      "partName": {
+        "type": "String"
+      },
+      "vehicleName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "loginNoAccount": "Não tem uma conta? Cadastre-se",
+  "loginSignUp": "Cadastre-se",
+  "signUpTitle": "Criar Conta",
+  "signUpSubtitle": "Preencha os dados para se cadastrar",
+  "signUpName": "NOME COMPLETO",
+  "signUpCpf": "CPF (apenas números)",
+  "signUpEmail": "E-MAIL",
+  "signUpPassword": "SENHA",
+  "signUpConfirmPassword": "CONFIRMAR SENHA",
+  "signUpButton": "Cadastrar",
+  "signUpPasswordMismatch": "As senhas não coincidem.",
+  "signUpSuccess": "Conta criada com sucesso!",
+  "signUpError": "Erro ao criar conta: {error}",
+  "@signUpError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profileEditTitle": "Editar Perfil",
+  "profileEditName": "Nome Completo",
+  "profileEditCpf": "CPF",
+  "profileEditSave": "Salvar",
+  "profileEditCancel": "Cancelar",
+  "garageAddVehicle": "Adicionar Veículo",
+  "garageAddVehicleTitle": "Cadastrar Veículo",
+  "garageAddPlate": "Placa (ex: ABC-1234)",
+  "garageAddBrand": "Marca",
+  "garageAddModel": "Modelo",
+  "garageAddYear": "Ano",
+  "garageAddInitialKm": "Quilometragem Atual (Hodômetro)",
+  "garageAddSuccess": "Veículo cadastrado com sucesso!"
 }

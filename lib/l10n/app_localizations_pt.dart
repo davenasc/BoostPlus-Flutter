@@ -160,4 +160,123 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get dialogUpdateKmError => 'Valor inválido ou menor que o atual.';
+
+  @override
+  String get historyOS => 'Ordem de Serviço';
+
+  @override
+  String historyOSWithNumber(String osNumber) {
+    return 'Ordem de Serviço #$osNumber';
+  }
+
+  @override
+  String get historyOSDetails => 'Detalhes da OS';
+
+  @override
+  String historyMechanic(String mechanic) {
+    return 'Mecânico: $mechanic';
+  }
+
+  @override
+  String get historyReplacedParts => 'Peças & Serviços Executados';
+
+  @override
+  String historyValidity(String km, String months) {
+    return 'Validade: $km km ou $months meses';
+  }
+
+  @override
+  String get historyNoVehicleSelected => 'Nenhum veículo selecionado.';
+
+  @override
+  String get historyNoHistoryFound =>
+      'Nenhum histórico de manutenção encontrado.';
+
+  @override
+  String get notificationTitle => 'Alerta de Manutenção ⚠️';
+
+  @override
+  String notificationBody(String partName, String vehicleName, String percent) {
+    return 'A peça \"$partName\" do seu $vehicleName está com apenas $percent% da duração restante. Agende uma revisão!';
+  }
+
+  @override
+  String get loginNoAccount => 'Não tem uma conta? Cadastre-se';
+
+  @override
+  String get loginSignUp => 'Cadastre-se';
+
+  @override
+  String get signUpTitle => 'Criar Conta';
+
+  @override
+  String get signUpSubtitle => 'Preencha os dados para se cadastrar';
+
+  @override
+  String get signUpName => 'NOME COMPLETO';
+
+  @override
+  String get signUpCpf => 'CPF (apenas números)';
+
+  @override
+  String get signUpEmail => 'E-MAIL';
+
+  @override
+  String get signUpPassword => 'SENHA';
+
+  @override
+  String get signUpConfirmPassword => 'CONFIRMAR SENHA';
+
+  @override
+  String get signUpButton => 'Cadastrar';
+
+  @override
+  String get signUpPasswordMismatch => 'As senhas não coincidem.';
+
+  @override
+  String get signUpSuccess => 'Conta criada com sucesso!';
+
+  @override
+  String signUpError(String error) {
+    return 'Erro ao criar conta: $error';
+  }
+
+  @override
+  String get profileEditTitle => 'Editar Perfil';
+
+  @override
+  String get profileEditName => 'Nome Completo';
+
+  @override
+  String get profileEditCpf => 'CPF';
+
+  @override
+  String get profileEditSave => 'Salvar';
+
+  @override
+  String get profileEditCancel => 'Cancelar';
+
+  @override
+  String get garageAddVehicle => 'Adicionar Veículo';
+
+  @override
+  String get garageAddVehicleTitle => 'Cadastrar Veículo';
+
+  @override
+  String get garageAddPlate => 'Placa (ex: ABC-1234)';
+
+  @override
+  String get garageAddBrand => 'Marca';
+
+  @override
+  String get garageAddModel => 'Modelo';
+
+  @override
+  String get garageAddYear => 'Ano';
+
+  @override
+  String get garageAddInitialKm => 'Quilometragem Atual (Hodômetro)';
+
+  @override
+  String get garageAddSuccess => 'Veículo cadastrado com sucesso!';
 }

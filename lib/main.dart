@@ -3,22 +3,45 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:boost_plus/l10n/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'firebase_options.dart';
 import 'services/firebase_service.dart';
+import 'services/notification_service.dart';
+import 'models/vehicle.dart';
+import 'models/maintenance.dart';
 
 import 'screens/login_page.dart';
 import 'screens/app_shell.dart';
 import 'screens/parts_page.dart';
+import 'screens/signup_page.dart';
+import 'screens/splash_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Hive.initFlutter();
+  Hive.registerAdapter(VehicleAdapter());
+  Hive.registerAdapter(MaintenanceItemAdapter());
+  Hive.registerAdapter(MaintenanceAdapter());
+  await Hive.openBox<Vehicle>('vehicles');
+  await Hive.openBox<Maintenance>('maintenances');
+  await Hive.openBox<bool>('notified_parts');
+
+  // inicia as notificacoes
+  await NotificationService().init();
+
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
   
-  // Popula o banco com os usuários de teste (CPF/Email) caso esteja vazio
+  // popula banco de teste
   final backendService = BackendService();
-  await backendService.seedDatabase();
+  try {
+    await backendService.seedDatabase();
+  } catch (e) {
+    debugPrint('Aviso: Não foi possível semear o banco de dados (regras de segurança restritivas): $e');
+  }
 
   runApp(const BoostPlusApp());
 }
@@ -63,14 +86,16 @@ class _BoostPlusAppState extends State<BoostPlusApp> {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: const [
-            Locale('pt', ''), // Portuguese
-            Locale('en', ''), // English
+            Locale('pt', ''), // portugues
+            Locale('en', ''), // ingles
           ],
           initialRoute: '/',
           routes: {
-            '/': (context) => const LoginPage(),
+            '/': (context) => const SplashPage(),
+            '/login': (context) => const LoginPage(),
             '/home': (context) => const AppShell(),
             '/parts': (context) => const PartsPage(),
+            '/signup': (context) => const SignUpPage(),
           },
         );
       },

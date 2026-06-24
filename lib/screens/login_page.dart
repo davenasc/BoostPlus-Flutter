@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:boost_plus/l10n/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../services/firebase_service.dart';
+import '../widgets/boost_logo.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,6 +17,16 @@ class _LoginPageState extends State<LoginPage> {
   final _backendService = BackendService();
   bool _isLoading = false;
   String? _errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (FirebaseAuth.instance.currentUser != null) {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+    });
+  }
 
   Future<void> _handleLogin() async {
     setState(() {
@@ -57,15 +69,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  width: 64,
-                  height: 64,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: const Icon(Icons.directions_car, color: Colors.white, size: 28),
-                ),
+                const BoostLogo(size: 64),
                 const SizedBox(height: 16),
                 Text(l10n.loginWelcome, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
                 Text(l10n.loginSubtitle, style: const TextStyle(color: Colors.grey)),
@@ -86,7 +90,6 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _usernameController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.person),
-                          hintText: 'admin',
                           filled: true,
                           fillColor: Colors.grey.shade100,
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
@@ -100,7 +103,6 @@ class _LoginPageState extends State<LoginPage> {
                         obscureText: true,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.lock),
-                          hintText: '••••••••',
                           filled: true,
                           fillColor: Colors.grey.shade100,
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
@@ -120,6 +122,11 @@ class _LoginPageState extends State<LoginPage> {
                         child: _isLoading 
                             ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))
                             : Text(l10n.loginSignIn),
+                      ),
+                      const SizedBox(height: 16),
+                      TextButton(
+                        onPressed: () => Navigator.pushNamed(context, '/signup'),
+                        child: Text(l10n.loginNoAccount),
                       ),
                     ],
                   ),

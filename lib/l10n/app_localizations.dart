@@ -391,6 +391,222 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Valor inválido ou menor que o atual.'**
   String get dialogUpdateKmError;
+
+  /// No description provided for @historyOS.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ordem de Serviço'**
+  String get historyOS;
+
+  /// No description provided for @historyOSWithNumber.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ordem de Serviço #{osNumber}'**
+  String historyOSWithNumber(String osNumber);
+
+  /// No description provided for @historyOSDetails.
+  ///
+  /// In pt, this message translates to:
+  /// **'Detalhes da OS'**
+  String get historyOSDetails;
+
+  /// No description provided for @historyMechanic.
+  ///
+  /// In pt, this message translates to:
+  /// **'Mecânico: {mechanic}'**
+  String historyMechanic(String mechanic);
+
+  /// No description provided for @historyReplacedParts.
+  ///
+  /// In pt, this message translates to:
+  /// **'Peças & Serviços Executados'**
+  String get historyReplacedParts;
+
+  /// No description provided for @historyValidity.
+  ///
+  /// In pt, this message translates to:
+  /// **'Validade: {km} km ou {months} meses'**
+  String historyValidity(String km, String months);
+
+  /// No description provided for @historyNoVehicleSelected.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nenhum veículo selecionado.'**
+  String get historyNoVehicleSelected;
+
+  /// No description provided for @historyNoHistoryFound.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nenhum histórico de manutenção encontrado.'**
+  String get historyNoHistoryFound;
+
+  /// No description provided for @notificationTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Alerta de Manutenção ⚠️'**
+  String get notificationTitle;
+
+  /// No description provided for @notificationBody.
+  ///
+  /// In pt, this message translates to:
+  /// **'A peça \"{partName}\" do seu {vehicleName} está com apenas {percent}% da duração restante. Agende uma revisão!'**
+  String notificationBody(String partName, String vehicleName, String percent);
+
+  /// No description provided for @loginNoAccount.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não tem uma conta? Cadastre-se'**
+  String get loginNoAccount;
+
+  /// No description provided for @loginSignUp.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cadastre-se'**
+  String get loginSignUp;
+
+  /// No description provided for @signUpTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Criar Conta'**
+  String get signUpTitle;
+
+  /// No description provided for @signUpSubtitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Preencha os dados para se cadastrar'**
+  String get signUpSubtitle;
+
+  /// No description provided for @signUpName.
+  ///
+  /// In pt, this message translates to:
+  /// **'NOME COMPLETO'**
+  String get signUpName;
+
+  /// No description provided for @signUpCpf.
+  ///
+  /// In pt, this message translates to:
+  /// **'CPF (apenas números)'**
+  String get signUpCpf;
+
+  /// No description provided for @signUpEmail.
+  ///
+  /// In pt, this message translates to:
+  /// **'E-MAIL'**
+  String get signUpEmail;
+
+  /// No description provided for @signUpPassword.
+  ///
+  /// In pt, this message translates to:
+  /// **'SENHA'**
+  String get signUpPassword;
+
+  /// No description provided for @signUpConfirmPassword.
+  ///
+  /// In pt, this message translates to:
+  /// **'CONFIRMAR SENHA'**
+  String get signUpConfirmPassword;
+
+  /// No description provided for @signUpButton.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cadastrar'**
+  String get signUpButton;
+
+  /// No description provided for @signUpPasswordMismatch.
+  ///
+  /// In pt, this message translates to:
+  /// **'As senhas não coincidem.'**
+  String get signUpPasswordMismatch;
+
+  /// No description provided for @signUpSuccess.
+  ///
+  /// In pt, this message translates to:
+  /// **'Conta criada com sucesso!'**
+  String get signUpSuccess;
+
+  /// No description provided for @signUpError.
+  ///
+  /// In pt, this message translates to:
+  /// **'Erro ao criar conta: {error}'**
+  String signUpError(String error);
+
+  /// No description provided for @profileEditTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Editar Perfil'**
+  String get profileEditTitle;
+
+  /// No description provided for @profileEditName.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nome Completo'**
+  String get profileEditName;
+
+  /// No description provided for @profileEditCpf.
+  ///
+  /// In pt, this message translates to:
+  /// **'CPF'**
+  String get profileEditCpf;
+
+  /// No description provided for @profileEditSave.
+  ///
+  /// In pt, this message translates to:
+  /// **'Salvar'**
+  String get profileEditSave;
+
+  /// No description provided for @profileEditCancel.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cancelar'**
+  String get profileEditCancel;
+
+  /// No description provided for @garageAddVehicle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar Veículo'**
+  String get garageAddVehicle;
+
+  /// No description provided for @garageAddVehicleTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cadastrar Veículo'**
+  String get garageAddVehicleTitle;
+
+  /// No description provided for @garageAddPlate.
+  ///
+  /// In pt, this message translates to:
+  /// **'Placa (ex: ABC-1234)'**
+  String get garageAddPlate;
+
+  /// No description provided for @garageAddBrand.
+  ///
+  /// In pt, this message translates to:
+  /// **'Marca'**
+  String get garageAddBrand;
+
+  /// No description provided for @garageAddModel.
+  ///
+  /// In pt, this message translates to:
+  /// **'Modelo'**
+  String get garageAddModel;
+
+  /// No description provided for @garageAddYear.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ano'**
+  String get garageAddYear;
+
+  /// No description provided for @garageAddInitialKm.
+  ///
+  /// In pt, this message translates to:
+  /// **'Quilometragem Atual (Hodômetro)'**
+  String get garageAddInitialKm;
+
+  /// No description provided for @garageAddSuccess.
+  ///
+  /// In pt, this message translates to:
+  /// **'Veículo cadastrado com sucesso!'**
+  String get garageAddSuccess;
 }
 
 class _AppLocalizationsDelegate

@@ -70,5 +70,87 @@
   "dialogUpdateKmDescription": "Keep your odometer up to date to get accurate maintenance alerts.",
   "dialogUpdateKmCancel": "Cancel",
   "dialogUpdateKmSave": "Save",
-  "dialogUpdateKmError": "Invalid value or less than current."
+  "dialogUpdateKmError": "Invalid value or less than current.",
+
+  "historyOS": "Service Order",
+  "historyOSWithNumber": "Service Order #{osNumber}",
+  "@historyOSWithNumber": {
+    "placeholders": {
+      "osNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "historyOSDetails": "OS Details",
+  "historyMechanic": "Mechanic: {mechanic}",
+  "@historyMechanic": {
+    "placeholders": {
+      "mechanic": {
+        "type": "String"
+      }
+    }
+  },
+  "historyReplacedParts": "Parts & Services Replaced",
+  "historyValidity": "Validity: {km} km or {months} months",
+  "@historyValidity": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      },
+      "months": {
+        "type": "String"
+      }
+    }
+  },
+  "historyNoVehicleSelected": "No vehicle selected.",
+  "historyNoHistoryFound": "No maintenance history found.",
+
+  "notificationTitle": "Maintenance Alert ⚠️",
+  "notificationBody": "The part \"{partName}\" of your {vehicleName} has only {percent}% of remaining life. Schedule a service!",
+  "@notificationBody": {
+    "placeholders": {
+      "partName": {
+        "type": "String"
+      },
+      "vehicleName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "loginNoAccount": "Don't have an account? Sign Up",
+  "loginSignUp": "Sign Up",
+  "signUpTitle": "Create Account",
+  "signUpSubtitle": "Fill in the details to register",
+  "signUpName": "FULL NAME",
+  "signUpCpf": "CPF (numbers only)",
+  "signUpEmail": "EMAIL",
+  "signUpPassword": "PASSWORD",
+  "signUpConfirmPassword": "CONFIRM PASSWORD",
+  "signUpButton": "Register",
+  "signUpPasswordMismatch": "Passwords do not match.",
+  "signUpSuccess": "Account created successfully!",
+  "signUpError": "Error creating account: {error}",
+  "@signUpError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profileEditTitle": "Edit Profile",
+  "profileEditName": "Full Name",
+  "profileEditCpf": "CPF",
+  "profileEditSave": "Save",
+  "profileEditCancel": "Cancel",
+  "garageAddVehicle": "Add Vehicle",
+  "garageAddVehicleTitle": "Register Vehicle",
+  "garageAddPlate": "Plate (e.g. ABC-1234)",
+  "garageAddBrand": "Brand",
+  "garageAddModel": "Model",
+  "garageAddYear": "Year",
+  "garageAddInitialKm": "Current Mileage (Odometer)",
+  "garageAddSuccess": "Vehicle registered successfully!"
 }
