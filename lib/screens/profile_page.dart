@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:app_settings/app_settings.dart';
 import '../services/firebase_service.dart';
 import '../models/profile.dart';
-import '../main.dart'; // precisa importar o main
+import '../main.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -35,7 +35,10 @@ class ProfilePage extends StatelessWidget {
               children: [
                 Text(
                   l10n.langSelect,
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 ListTile(
@@ -77,8 +80,14 @@ class ProfilePage extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Boost+', style: TextStyle(fontSize: 12, color: Colors.grey)),
-            Text(l10n.profileTitle, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            const Text(
+              'Boost+',
+              style: TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+            Text(
+              l10n.profileTitle,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       ),
@@ -94,7 +103,12 @@ class ProfilePage extends StatelessWidget {
               final email = profile?.email ?? defaultEmail;
 
               final initials = name.isNotEmpty
-                  ? name.split(' ').map((e) => e.substring(0, 1)).take(2).join('').toUpperCase()
+                  ? name
+                        .split(' ')
+                        .map((e) => e.substring(0, 1))
+                        .take(2)
+                        .join('')
+                        .toUpperCase()
                   : 'B+';
 
               return Container(
@@ -110,7 +124,9 @@ class ProfilePage extends StatelessWidget {
                       width: 64,
                       height: 64,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                        color: Theme.of(
+                          context,
+                        ).primaryColor.withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                       ),
                       child: Center(
@@ -131,7 +147,10 @@ class ProfilePage extends StatelessWidget {
                         children: [
                           Text(
                             name,
-                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
@@ -144,7 +163,10 @@ class ProfilePage extends StatelessWidget {
                     ),
                     if (profile != null)
                       IconButton(
-                        icon: const Icon(Icons.edit_outlined, color: Colors.grey),
+                        icon: const Icon(
+                          Icons.edit_outlined,
+                          color: Colors.grey,
+                        ),
                         onPressed: () {
                           _showEditProfileBottomSheet(context, profile);
                         },
@@ -176,8 +198,21 @@ class ProfilePage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('$vehicleCount', style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.blue)),
-                          Text(l10n.profileVehicles, style: const TextStyle(fontSize: 12, color: Colors.blueGrey)),
+                          Text(
+                            '$vehicleCount',
+                            style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                            ),
+                          ),
+                          Text(
+                            l10n.profileVehicles,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.blueGrey,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -193,8 +228,21 @@ class ProfilePage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('$serviceCount', style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.green)),
-                          Text(l10n.profileServices, style: const TextStyle(fontSize: 12, color: Colors.blueGrey)),
+                          Text(
+                            '$serviceCount',
+                            style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green,
+                            ),
+                          ),
+                          Text(
+                            l10n.profileServices,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.blueGrey,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -204,10 +252,13 @@ class ProfilePage extends StatelessWidget {
             },
           ),
           const SizedBox(height: 24),
-          
-          Text(l10n.profileAccount, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+
+          Text(
+            l10n.profileAccount,
+            style: const TextStyle(fontSize: 12, color: Colors.grey),
+          ),
           const SizedBox(height: 8),
-          
+
           // menu de botoes
           Container(
             decoration: BoxDecoration(
@@ -217,28 +268,120 @@ class ProfilePage extends StatelessWidget {
             ),
             child: Column(
               children: [
-                _buildListTile(context, Icons.notifications, l10n.profileNotifications, onTap: () {
-                  AppSettings.openAppSettings(type: AppSettingsType.notification);
-                }),
+                _buildListTile(
+                  context,
+                  Icons.notifications,
+                  l10n.profileNotifications,
+                  onTap: () {
+                    AppSettings.openAppSettings(
+                      type: AppSettingsType.notification,
+                    );
+                  },
+                ),
                 const Divider(height: 1),
-                _buildListTile(context, Icons.security, l10n.profilePrivacy, onTap: () {
-                  _showSoonSnackBar(context);
-                }),
+                _buildListTile(
+                  context,
+                  Icons.security,
+                  l10n.profilePrivacy,
+                  onTap: () {
+                    _showSoonSnackBar(context);
+                  },
+                ),
                 const Divider(height: 1),
-                _buildListTile(context, Icons.help, l10n.profileHelpSupport, onTap: () {
-                  _showSoonSnackBar(context);
-                }),
+                _buildListTile(
+                  context,
+                  Icons.help,
+                  l10n.profileHelpSupport,
+                  onTap: () {
+                    _showSoonSnackBar(context);
+                  },
+                ),
                 const Divider(height: 1),
-                _buildListTile(context, Icons.language, l10n.profileLanguage, onTap: () {
-                  _showLanguageSelector(context);
-                }),
+                _buildListTile(
+                  context,
+                  Icons.language,
+                  l10n.profileLanguage,
+                  onTap: () {
+                    _showLanguageSelector(context);
+                  },
+                ),
                 const Divider(height: 1),
-                _buildListTile(context, Icons.logout, l10n.profileSignOut, onTap: () async {
-                  await backendService.logout();
-                  if (context.mounted) {
-                    Navigator.pushReplacementNamed(context, '/login');
-                  }
-                }),
+                _buildListTile(
+                  context,
+                  Icons.restore_page_outlined,
+                  l10n.profileRestoreTestData,
+                  onTap: () async {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext dialogContext) {
+                        return PopScope(
+                          canPop: false,
+                          child: Dialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+                                  ),
+                                  const SizedBox(height: 24),
+                                  Text(
+                                    l10n.profileRestoreTestData,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+
+                    try {
+                      await backendService.seedCurrentUser(force: true);
+                      if (context.mounted) {
+                        Navigator.of(context).pop(); // fecha o loader
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(l10n.profileRestoreTestDataSuccess),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      if (context.mounted) {
+                        Navigator.of(context).pop(); // fecha o loader
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(l10n.profileRestoreTestDataError(e.toString())),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    }
+                  },
+                ),
+                const Divider(height: 1),
+                _buildListTile(
+                  context,
+                  Icons.logout,
+                  l10n.profileSignOut,
+                  onTap: () async {
+                    await backendService.logout();
+                    if (context.mounted) {
+                      Navigator.pushReplacementNamed(context, '/login');
+                    }
+                  },
+                ),
               ],
             ),
           ),
@@ -247,7 +390,12 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildListTile(BuildContext context, IconData icon, String title, {VoidCallback? onTap}) {
+  Widget _buildListTile(
+    BuildContext context,
+    IconData icon,
+    String title, {
+    VoidCallback? onTap,
+  }) {
     return ListTile(
       leading: Container(
         padding: const EdgeInsets.all(8),
@@ -284,7 +432,8 @@ class _EditProfileBottomSheet extends StatefulWidget {
   const _EditProfileBottomSheet({required this.profile});
 
   @override
-  State<_EditProfileBottomSheet> createState() => _EditProfileBottomSheetState();
+  State<_EditProfileBottomSheet> createState() =>
+      _EditProfileBottomSheetState();
 }
 
 class _EditProfileBottomSheetState extends State<_EditProfileBottomSheet> {
@@ -320,7 +469,10 @@ class _EditProfileBottomSheetState extends State<_EditProfileBottomSheet> {
 
     try {
       final cleanCpf = _cpfController.text.replaceAll(RegExp(r'\D'), '');
-      await _backendService.atualizarPerfil(_nameController.text.trim(), cleanCpf);
+      await _backendService.atualizarPerfil(
+        _nameController.text.trim(),
+        cleanCpf,
+      );
       if (mounted) {
         Navigator.of(context).pop();
       }
@@ -408,23 +560,44 @@ class _EditProfileBottomSheetState extends State<_EditProfileBottomSheet> {
             const SizedBox(height: 24),
 
             // Nome Completo
-            Text(l10n.profileEditName, style: const TextStyle(fontSize: 12, color: Colors.grey, fontWeight: FontWeight.bold)),
+            Text(
+              l10n.profileEditName,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 8),
             TextFormField(
               controller: _nameController,
-              validator: (value) => value == null || value.trim().isEmpty ? '' : null,
+              validator: (value) =>
+                  value == null || value.trim().isEmpty ? '' : null,
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.person_outline, color: colorScheme.primary),
+                prefixIcon: Icon(
+                  Icons.person_outline,
+                  color: colorScheme.primary,
+                ),
                 filled: true,
                 fillColor: colorScheme.surfaceContainerHighest,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide.none,
+                ),
                 errorStyle: const TextStyle(height: 0),
               ),
             ),
             const SizedBox(height: 16),
 
             // CPF
-            Text(l10n.profileEditCpf, style: const TextStyle(fontSize: 12, color: Colors.grey, fontWeight: FontWeight.bold)),
+            Text(
+              l10n.profileEditCpf,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 8),
             TextFormField(
               controller: _cpfController,
@@ -436,17 +609,26 @@ class _EditProfileBottomSheetState extends State<_EditProfileBottomSheet> {
                 return null;
               },
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.badge_outlined, color: colorScheme.primary),
+                prefixIcon: Icon(
+                  Icons.badge_outlined,
+                  color: colorScheme.primary,
+                ),
                 filled: true,
                 fillColor: colorScheme.surfaceContainerHighest,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide.none,
+                ),
                 errorStyle: const TextStyle(height: 0),
               ),
             ),
             const SizedBox(height: 24),
 
             if (_errorMessage != null) ...[
-              Text(_errorMessage!, style: const TextStyle(color: Colors.red, fontSize: 14)),
+              Text(
+                _errorMessage!,
+                style: const TextStyle(color: Colors.red, fontSize: 14),
+              ),
               const SizedBox(height: 16),
             ],
 
@@ -478,7 +660,11 @@ class _EditProfileBottomSheetState extends State<_EditProfileBottomSheet> {
                       ),
                     ),
                     child: _isLoading
-                        ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                        ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
                         : Text(
                             l10n.profileEditSave,
                             style: const TextStyle(fontWeight: FontWeight.bold),
@@ -493,4 +679,3 @@ class _EditProfileBottomSheetState extends State<_EditProfileBottomSheet> {
     );
   }
 }
-

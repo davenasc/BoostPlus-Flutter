@@ -18,21 +18,36 @@ import 'screens/splash_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
-  Hive.registerAdapter(VehicleAdapter());
-  Hive.registerAdapter(MaintenanceItemAdapter());
-  Hive.registerAdapter(MaintenanceAdapter());
-  await Hive.openBox<Vehicle>('vehicles');
-  await Hive.openBox<Maintenance>('maintenances');
-  await Hive.openBox<bool>('notified_parts');
+
+  // inicia o hive
+  try {
+    await Hive.initFlutter();
+    Hive.registerAdapter(VehicleAdapter());
+    Hive.registerAdapter(MaintenanceItemAdapter());
+    Hive.registerAdapter(MaintenanceAdapter());
+    await Hive.openBox<Vehicle>('vehicles');
+    await Hive.openBox<Maintenance>('maintenances');
+    await Hive.openBox<bool>('notified_parts');
+  } catch (e) {
+    debugPrint('Erro ao inicializar o Hive: $e');
+  }
 
   // inicia as notificacoes
-  await NotificationService().init();
+  try {
+    await NotificationService().init();
+  } catch (e) {
+    debugPrint('Erro ao inicializar notificacoes: $e');
+  }
 
-  if (Firebase.apps.isEmpty) {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+  // inicia o firebase
+  try {
+    if (Firebase.apps.isEmpty) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+    }
+  } catch (e) {
+    debugPrint('Erro ao inicializar o Firebase: $e');
   }
   
   // popula banco de teste

@@ -279,4 +279,16 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get garageAddSuccess => 'Veículo cadastrado com sucesso!';
+
+  @override
+  String get profileRestoreTestData => 'Restaurar dados de teste';
+
+  @override
+  String get profileRestoreTestDataSuccess =>
+      'Dados de teste restaurados com sucesso!';
+
+  @override
+  String profileRestoreTestDataError(String error) {
+    return 'Erro ao restaurar dados de teste: $error';
+  }
 }

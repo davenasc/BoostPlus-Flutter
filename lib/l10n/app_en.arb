@@ -152,5 +152,15 @@
   "garageAddModel": "Model",
   "garageAddYear": "Year",
   "garageAddInitialKm": "Current Mileage (Odometer)",
-  "garageAddSuccess": "Vehicle registered successfully!"
+  "garageAddSuccess": "Vehicle registered successfully!",
+  "profileRestoreTestData": "Restore test data",
+  "profileRestoreTestDataSuccess": "Test data successfully restored!",
+  "profileRestoreTestDataError": "Error restoring test data: {error}",
+  "@profileRestoreTestDataError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  }
 }

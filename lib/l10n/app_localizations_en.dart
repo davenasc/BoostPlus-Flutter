@@ -277,4 +277,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get garageAddSuccess => 'Vehicle registered successfully!';
+
+  @override
+  String get profileRestoreTestData => 'Restore test data';
+
+  @override
+  String get profileRestoreTestDataSuccess =>
+      'Test data successfully restored!';
+
+  @override
+  String profileRestoreTestDataError(String error) {
+    return 'Error restoring test data: $error';
+  }
 }

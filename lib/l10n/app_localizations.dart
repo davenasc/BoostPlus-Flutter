@@ -607,6 +607,24 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Veículo cadastrado com sucesso!'**
   String get garageAddSuccess;
+
+  /// No description provided for @profileRestoreTestData.
+  ///
+  /// In pt, this message translates to:
+  /// **'Restaurar dados de teste'**
+  String get profileRestoreTestData;
+
+  /// No description provided for @profileRestoreTestDataSuccess.
+  ///
+  /// In pt, this message translates to:
+  /// **'Dados de teste restaurados com sucesso!'**
+  String get profileRestoreTestDataSuccess;
+
+  /// No description provided for @profileRestoreTestDataError.
+  ///
+  /// In pt, this message translates to:
+  /// **'Erro ao restaurar dados de teste: {error}'**
+  String profileRestoreTestDataError(String error);
 }
 
 class _AppLocalizationsDelegate

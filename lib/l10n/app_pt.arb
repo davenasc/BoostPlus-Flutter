@@ -152,5 +152,15 @@
   "garageAddModel": "Modelo",
   "garageAddYear": "Ano",
   "garageAddInitialKm": "Quilometragem Atual (Hodômetro)",
-  "garageAddSuccess": "Veículo cadastrado com sucesso!"
+  "garageAddSuccess": "Veículo cadastrado com sucesso!",
+  "profileRestoreTestData": "Restaurar dados de teste",
+  "profileRestoreTestDataSuccess": "Dados de teste restaurados com sucesso!",
+  "profileRestoreTestDataError": "Erro ao restaurar dados de teste: {error}",
+  "@profileRestoreTestDataError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  }
 }

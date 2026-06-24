@@ -266,6 +266,7 @@ class BackendService {
                 ? '${localVehicle.brand} ${localVehicle.model}' 
                 : 'Veículo';
 
+            await NotificationService().requestPermission();
             await NotificationService().showNotification(
               id: part.nameKey.hashCode,
               title: l10n.notificationTitle,
@@ -377,237 +378,284 @@ class BackendService {
   }
 
   // popula banco para teste
+  // popula banco para teste
   Future<void> seedDatabase() async {
-    // cria usuario de teste
     String uid = '';
+    
+    // Primeiro tenta ver se ja tem usuario logado
+    if (_auth.currentUser != null) {
+      uid = _auth.currentUser!.uid;
+    } else {
+      // Se nao, tenta fazer login com a conta de teste padrao para obter permissao
+      try {
+        final credential = await _auth.signInWithEmailAndPassword(
+          email: 'davenasc@gmail.com',
+          password: 'david123',
+        );
+        uid = credential.user!.uid;
+      } catch (loginErr) {
+        // Se falhar o login, tenta criar a conta
+        try {
+          final credential = await _auth.createUserWithEmailAndPassword(
+            email: 'davenasc@gmail.com',
+            password: 'david123',
+          );
+          uid = credential.user!.uid;
+
+          // Salva os dados do perfil
+          await _db.collection('perfis').doc(uid).set({
+            'nome': 'David Nascimento',
+            'cpf': '12345678900',
+            'email': 'davenasc@gmail.com',
+            'tipo_usuario': 'Cliente',
+          });
+        } catch (createErr) {
+          debugPrint('Aviso: Nao foi possivel criar ou logar usuario de teste: $createErr');
+          // Como ultimo recurso, tenta buscar o perfil no banco pelo email
+          try {
+            final querySnapshot = await _db.collection('perfis').where('email', isEqualTo: 'davenasc@gmail.com').limit(1).get();
+            if (querySnapshot.docs.isNotEmpty) {
+              uid = querySnapshot.docs.first.id;
+            }
+          } catch (queryErr) {
+            debugPrint('Erro ao buscar perfil de teste: $queryErr');
+          }
+        }
+      }
+    }
+
+    if (uid.isEmpty) {
+      debugPrint('Aviso: UID de teste vazio. Pulando o seed do banco de dados.');
+      return;
+    }
+
+    // Tenta semear categorias (pode falhar por regras de seguranca de escrita global)
     try {
-      final userCredential = await _auth.createUserWithEmailAndPassword(
-        email: 'davenasc@gmail.com',
-        password: 'david123',
-      );
-      uid = userCredential.user!.uid;
+      final Map<String, Map<String, String>> categoriasMap = {
+        'cat_oleo': {
+          'nome': 'Troca de Óleo',
+          'descricao': 'Serviço de troca de óleo do motor',
+        },
+        'cat_freio': {
+          'nome': 'Freios',
+          'descricao': 'Manutenção de pastilhas e discos',
+        },
+        'cat_pneu': {
+          'nome': 'Pneus',
+          'descricao': 'Troca ou rodízio de pneus',
+        },
+        'cat_bateria': {
+          'nome': 'Bateria',
+          'descricao': 'Troca e teste de bateria',
+        },
+        'cat_filtros': {
+          'nome': 'Filtros',
+          'descricao': 'Substituição de filtros do veículo',
+        },
+        'cat_arrefecimento': {
+          'nome': 'Arrefecimento',
+          'descricao': 'Manutenção do sistema de arrefecimento e radiador',
+        },
+      };
 
-      // salva dados do perfil
-      await _db.collection('perfis').doc(uid).set({
-        'nome': 'David Nascimento',
-        'cpf': '12345678900',
-        'email': 'davenasc@gmail.com',
-        'tipo_usuario': 'Cliente',
-      });
+      for (final entry in categoriasMap.entries) {
+        await _db.collection('categorias').doc(entry.key).set({
+          'nome': entry.value['nome'],
+          'descricao': entry.value['descricao'],
+        });
+      }
     } catch (e) {
-      debugPrint('Usuário de teste já existe no Auth: $e');
-      final querySnapshot = await _db.collection('perfis').where('email', isEqualTo: 'davenasc@gmail.com').limit(1).get();
-      if (querySnapshot.docs.isNotEmpty) {
-        uid = querySnapshot.docs.first.id;
-      }
+      debugPrint('Aviso: Nao foi possivel semear categorias (sem permissao de escrita global): $e');
     }
 
-    if (uid.isNotEmpty) {
-      // ve se ja tem veiculo
-      final vehiclesQuery = await _db.collection('perfis').doc(uid).collection('veiculos').limit(1).get();
-      if (vehiclesQuery.docs.isNotEmpty) {
-        debugPrint('Usuário já possui veículos cadastrados. Pulando o seed do banco de dados.');
-        return;
-      }
+    // Popula os veiculos e manutencoes para o usuario
+    try {
+      await seedUserVehicles(uid, force: false);
+    } catch (e) {
+      debugPrint('Erro ao semear veiculos do usuario no startup: $e');
+    }
+  }
 
-      // cria veiculos de teste
-      final veiculoCivicRef = _db.collection('perfis').doc(uid).collection('veiculos').doc('civic_id');
-      await veiculoCivicRef.set({
-        'placa': 'ABC-1234',
-        'marca': 'Honda',
-        'modelo': 'Civic',
-        'ano': 2022,
-        'km_atual': 45000,
-      });
-
-      final veiculoCorollaRef = _db.collection('perfis').doc(uid).collection('veiculos').doc('corolla_id');
-      await veiculoCorollaRef.set({
-        'placa': 'XYZ-9876',
-        'marca': 'Toyota',
-        'modelo': 'Corolla',
-        'ano': 2020,
-        'km_atual': 85000,
-      });
-
-      // deleta as velhas e insere as novas do Civic
-      final civicManutencoes = await veiculoCivicRef.collection('manutencoes').get();
-      for (final doc in civicManutencoes.docs) {
-        await doc.reference.delete();
-      }
-
-      await veiculoCivicRef.collection('manutencoes').doc('os_civic_1').set({
-        'id_mecanico': 'mecanico_x',
-        'data_servico': Timestamp.fromDate(DateTime.now().subtract(const Duration(days: 30))),
-        'km_no_servico': 35000,
-        'observacoes': 'Troca periódica de fluidos e filtros recomendados na revisão de 35.000 KM.',
-        'numero_os': 'OS-2026-001',
-        'itens': [
-          {
-            'id_categoria': 'cat_oleo',
-            'especificacao_peca': 'Óleo 5W30 Sintético',
-            'validade_km': 10000,
-            'validade_meses': 6,
-          },
-          {
-            'id_categoria': 'cat_filtros',
-            'especificacao_peca': 'Filtro de Óleo e Filtro de Ar do Motor',
-            'validade_km': 10000,
-            'validade_meses': 12,
-          }
-        ]
-      });
-
-      await veiculoCivicRef.collection('manutencoes').doc('os_civic_2').set({
-        'id_mecanico': 'mecanico_x',
-        'data_servico': Timestamp.fromDate(DateTime.now().subtract(const Duration(days: 120))),
-        'km_no_servico': 25000,
-        'observacoes': 'Revisão do sistema elétrico e substituição de pastilhas gastas.',
-        'numero_os': 'OS-2026-002',
-        'itens': [
-          {
-            'id_categoria': 'cat_freio',
-            'especificacao_peca': 'Pastilhas de cerâmica Bosch',
-            'validade_km': 40000,
-            'validade_meses': 24,
-          },
-          {
-            'id_categoria': 'cat_bateria',
-            'especificacao_peca': 'Bateria Moura 60Ah',
-            'validade_km': 50000,
-            'validade_meses': 36,
-          }
-        ]
-      });
-
-      await veiculoCivicRef.collection('manutencoes').doc('os_civic_3').set({
-        'id_mecanico': 'mecanico_y',
-        'data_servico': Timestamp.fromDate(DateTime.now().subtract(const Duration(days: 10))),
-        'km_no_servico': 40000,
-        'observacoes': 'Substituição preventiva de pneus e adição de aditivo de radiador.',
-        'numero_os': 'OS-2026-003',
-        'itens': [
-          {
-            'id_categoria': 'cat_pneu',
-            'especificacao_peca': 'Pneus Michelin Primacy 4',
-            'validade_km': 15000,
-            'validade_meses': 12,
-          },
-          {
-            'id_categoria': 'cat_arrefecimento',
-            'especificacao_peca': 'Aditivo de Radiador Orgânico',
-            'validade_km': 30000,
-            'validade_meses': 24,
-          }
-        ]
-      });
-
-      // deleta as velhas e insere as novas do Corolla
-      final corollaManutencoes = await veiculoCorollaRef.collection('manutencoes').get();
-      for (final doc in corollaManutencoes.docs) {
-        await doc.reference.delete();
-      }
-
-      await veiculoCorollaRef.collection('manutencoes').doc('os_corolla_1').set({
-        'id_mecanico': 'mecanico_x',
-        'data_servico': Timestamp.fromDate(DateTime.now().subtract(const Duration(days: 15))),
-        'km_no_servico': 80000,
-        'observacoes': 'Troca de óleo, filtros gerais e pneus novos no alinhamento de 80.000 KM.',
-        'numero_os': 'OS-2026-004',
-        'itens': [
-          {
-            'id_categoria': 'cat_oleo',
-            'especificacao_peca': 'Óleo 0W20 Toyota Sintético',
-            'validade_km': 10000,
-            'validade_meses': 6,
-          },
-          {
-            'id_categoria': 'cat_filtros',
-            'especificacao_peca': 'Filtro de Óleo, Combustível e Cabine',
-            'validade_km': 10000,
-            'validade_meses': 12,
-          },
-          {
-            'id_categoria': 'cat_pneu',
-            'especificacao_peca': 'Pneus Pirelli Cinturato P7',
-            'validade_km': 20000,
-            'validade_meses': 12,
-          }
-        ]
-      });
-
-      await veiculoCorollaRef.collection('manutencoes').doc('os_corolla_2').set({
-        'id_mecanico': 'mecanico_z',
-        'data_servico': Timestamp.fromDate(DateTime.now().subtract(const Duration(days: 150))),
-        'km_no_servico': 75000,
-        'observacoes': 'Troca preventiva dos componentes de freio dianteiros e traseiros.',
-        'numero_os': 'OS-2026-005',
-        'itens': [
-          {
-            'id_categoria': 'cat_freio',
-            'especificacao_peca': 'Pastilhas e Discos de freio Fremax',
-            'validade_km': 25000,
-            'validade_meses': 24,
-          }
-        ]
-      });
-
-      await veiculoCorollaRef.collection('manutencoes').doc('os_corolla_3').set({
-        'id_mecanico': 'mecanico_z',
-        'data_servico': Timestamp.fromDate(DateTime.now().subtract(const Duration(days: 500))),
-        'km_no_servico': 50000,
-        'observacoes': 'Troca de bateria devido ao fim da vida útil e limpeza do arrefecimento.',
-        'numero_os': 'OS-2026-006',
-        'itens': [
-          {
-            'id_categoria': 'cat_bateria',
-            'especificacao_peca': 'Bateria Heliar 60Ah',
-            'validade_km': 40000,
-            'validade_meses': 36,
-          },
-          {
-            'id_categoria': 'cat_arrefecimento',
-            'especificacao_peca': 'Limpeza completa e aditivo de arrefecimento',
-            'validade_km': 30000,
-            'validade_meses': 24,
-          }
-        ]
-      });
+  // popula veiculos do usuario
+  Future<void> seedUserVehicles(String uid, {bool force = false}) async {
+    // ve se ja tem veiculo cadastrado
+    final vehiclesQuery = await _db.collection('perfis').doc(uid).collection('veiculos').limit(1).get();
+    if (vehiclesQuery.docs.isNotEmpty && !force) {
+      debugPrint('Usuario ja possui veiculos cadastrados. Pulando o seed do banco de dados.');
+      return;
     }
 
-    // insere as categorias
-    final Map<String, Map<String, String>> categoriasMap = {
-      'cat_oleo': {
-        'nome': 'Troca de Óleo',
-        'descricao': 'Serviço de troca de óleo do motor',
-      },
-      'cat_freio': {
-        'nome': 'Freios',
-        'descricao': 'Manutenção de pastilhas e discos',
-      },
-      'cat_pneu': {
-        'nome': 'Pneus',
-        'descricao': 'Troca ou rodízio de pneus',
-      },
-      'cat_bateria': {
-        'nome': 'Bateria',
-        'descricao': 'Troca e teste de bateria',
-      },
-      'cat_filtros': {
-        'nome': 'Filtros',
-        'descricao': 'Substituição de filtros do veículo',
-      },
-      'cat_arrefecimento': {
-        'nome': 'Arrefecimento',
-        'descricao': 'Manutenção do sistema de arrefecimento e radiador',
-      },
-    };
+    // cria veiculos de teste
+    final veiculoCivicRef = _db.collection('perfis').doc(uid).collection('veiculos').doc('civic_id');
+    await veiculoCivicRef.set({
+      'placa': 'ABC-1234',
+      'marca': 'Honda',
+      'modelo': 'Civic',
+      'ano': 2022,
+      'km_atual': 45000,
+    });
 
-    for (final entry in categoriasMap.entries) {
-      await _db.collection('categorias').doc(entry.key).set({
-        'nome': entry.value['nome'],
-        'descricao': entry.value['descricao'],
-      });
+    final veiculoCorollaRef = _db.collection('perfis').doc(uid).collection('veiculos').doc('corolla_id');
+    await veiculoCorollaRef.set({
+      'placa': 'XYZ-9876',
+      'marca': 'Toyota',
+      'modelo': 'Corolla',
+      'ano': 2020,
+      'km_atual': 85000,
+    });
+
+    // deleta as velhas e insere as novas do Civic
+    final civicManutencoes = await veiculoCivicRef.collection('manutencoes').get();
+    for (final doc in civicManutencoes.docs) {
+      await doc.reference.delete();
     }
+
+    await veiculoCivicRef.collection('manutencoes').doc('os_civic_1').set({
+      'id_mecanico': 'mecanico_x',
+      'data_servico': Timestamp.fromDate(DateTime.now().subtract(const Duration(days: 30))),
+      'km_no_servico': 35000,
+      'observacoes': 'Troca periódica de fluidos e filtros recomendados na revisão de 35.000 KM.',
+      'numero_os': 'OS-2026-001',
+      'itens': [
+        {
+          'id_categoria': 'cat_oleo',
+          'especificacao_peca': 'Óleo 5W30 Sintético',
+          'validade_km': 10000,
+          'validade_meses': 6,
+        },
+        {
+          'id_categoria': 'cat_filtros',
+          'especificacao_peca': 'Filtro de Óleo e Filtro de Ar do Motor',
+          'validade_km': 10000,
+          'validade_meses': 12,
+        }
+      ]
+    });
+
+    await veiculoCivicRef.collection('manutencoes').doc('os_civic_2').set({
+      'id_mecanico': 'mecanico_x',
+      'data_servico': Timestamp.fromDate(DateTime.now().subtract(const Duration(days: 120))),
+      'km_no_servico': 25000,
+      'observacoes': 'Revisão do sistema elétrico e substituição de pastilhas gastas.',
+      'numero_os': 'OS-2026-002',
+      'itens': [
+        {
+          'id_categoria': 'cat_freio',
+          'especificacao_peca': 'Pastilhas de cerâmica Bosch',
+          'validade_km': 40000,
+          'validade_meses': 24,
+        },
+        {
+          'id_categoria': 'cat_bateria',
+          'especificacao_peca': 'Bateria Moura 60Ah',
+          'validade_km': 50000,
+          'validade_meses': 36,
+        }
+      ]
+    });
+
+    await veiculoCivicRef.collection('manutencoes').doc('os_civic_3').set({
+      'id_mecanico': 'mecanico_y',
+      'data_servico': Timestamp.fromDate(DateTime.now().subtract(const Duration(days: 10))),
+      'km_no_servico': 40000,
+      'observacoes': 'Substituição preventiva de pneus e adição de aditivo de radiador.',
+      'numero_os': 'OS-2026-003',
+      'itens': [
+        {
+          'id_categoria': 'cat_pneu',
+          'especificacao_peca': 'Pneus Michelin Primacy 4',
+          'validade_km': 15000,
+          'validade_meses': 12,
+        },
+        {
+          'id_categoria': 'cat_arrefecimento',
+          'especificacao_peca': 'Aditivo de Radiador Orgânico',
+          'validade_km': 30000,
+          'validade_meses': 24,
+        }
+      ]
+    });
+
+    // deleta as velhas e insere as novas do Corolla
+    final corollaManutencoes = await veiculoCorollaRef.collection('manutencoes').get();
+    for (final doc in corollaManutencoes.docs) {
+      await doc.reference.delete();
+    }
+
+    await veiculoCorollaRef.collection('manutencoes').doc('os_corolla_1').set({
+      'id_mecanico': 'mecanico_x',
+      'data_servico': Timestamp.fromDate(DateTime.now().subtract(const Duration(days: 15))),
+      'km_no_servico': 80000,
+      'observacoes': 'Troca de óleo, filtros gerais e pneus novos no alinhamento de 80.000 KM.',
+      'numero_os': 'OS-2026-004',
+      'itens': [
+        {
+          'id_categoria': 'cat_oleo',
+          'especificacao_peca': 'Óleo 0W20 Toyota Sintético',
+          'validade_km': 10000,
+          'validade_meses': 6,
+        },
+        {
+          'id_categoria': 'cat_filtros',
+          'especificacao_peca': 'Filtro de Óleo, Combustível e Cabine',
+          'validade_km': 10000,
+          'validade_meses': 12,
+        },
+        {
+          'id_categoria': 'cat_pneu',
+          'especificacao_peca': 'Pneus Pirelli Cinturato P7',
+          'validade_km': 20000,
+          'validade_meses': 12,
+        }
+      ]
+    });
+
+    await veiculoCorollaRef.collection('manutencoes').doc('os_corolla_2').set({
+      'id_mecanico': 'mecanico_z',
+      'data_servico': Timestamp.fromDate(DateTime.now().subtract(const Duration(days: 150))),
+      'km_no_servico': 75000,
+      'observacoes': 'Troca preventiva dos componentes de freio dianteiros e traseiros.',
+      'numero_os': 'OS-2026-005',
+      'itens': [
+        {
+          'id_categoria': 'cat_freio',
+          'especificacao_peca': 'Pastilhas e Discos de freio Fremax',
+          'validade_km': 25000,
+          'validade_meses': 24,
+        }
+      ]
+    });
+
+    await veiculoCorollaRef.collection('manutencoes').doc('os_corolla_3').set({
+      'id_mecanico': 'mecanico_z',
+      'data_servico': Timestamp.fromDate(DateTime.now().subtract(const Duration(days: 500))),
+      'km_no_servico': 50000,
+      'observacoes': 'Troca de bateria devido ao fim da vida útil e limpeza do arrefecimento.',
+      'numero_os': 'OS-2026-006',
+      'itens': [
+        {
+          'id_categoria': 'cat_bateria',
+          'especificacao_peca': 'Bateria Heliar 60Ah',
+          'validade_km': 40000,
+          'validade_meses': 36,
+        },
+        {
+          'id_categoria': 'cat_arrefecimento',
+          'especificacao_peca': 'Limpeza completa e aditivo de arrefecimento',
+          'validade_km': 30000,
+          'validade_meses': 24,
+        }
+      ]
+    });
+  }
+
+  // popula veiculos do usuario atual
+  Future<void> seedCurrentUser({bool force = true}) async {
+    final user = _auth.currentUser;
+    if (user == null) {
+      throw Exception('Nenhum usuário está logado no momento.');
+    }
+    await seedUserVehicles(user.uid, force: force);
   }
 }
 
