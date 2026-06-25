@@ -1,0 +1,166 @@
+{
+  "@@locale": "en",
+  "loginWelcome": "Welcome back",
+  "loginSubtitle": "Sign in to access your garage",
+  "loginUsername": "USERNAME",
+  "loginPassword": "PASSWORD",
+  "loginSignIn": "Sign In",
+  
+  "garageVehicleMaintenance": "Vehicle Maintenance",
+  "garageMyGarage": "My Garage",
+  "garageOdometer": "ODOMETER",
+  "garagePartStatus": "Part Status",
+  "garageSeeAll": "See All",
+  "garageUpdateKm": "Update KM",
+  "garageMaintenanceTips": "MAINTENANCE TIPS",
+  "garageTips1": "Check tire pressure every 15 days.",
+  "garageTips2": "Change engine oil every 10,000 km.",
+  "garageTips3": "Check brake fluid level monthly.",
+  "garageTips4": "Rotate tires to ensure even wear.",
+  
+  "partsAllParts": "All Parts",
+  "partRemaining": "{km} km remaining",
+  "@partRemaining": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "partStatusOk": "OK",
+  "partStatusWarning": "WARNING",
+  
+  "historyMaintenanceHistory": "Maintenance History",
+  "historyTimeline": "Timeline of every service",
+  
+  "profileTitle": "Profile",
+  "profileVehicles": "Vehicles",
+  "profileServices": "Services",
+  "profileAccount": "ACCOUNT",
+  "profileNotifications": "Notifications",
+  "profilePrivacy": "Privacy",
+  "profileHelpSupport": "Help & Support",
+  "profileLanguage": "Language",
+  "profileSignOut": "Sign Out",
+
+  "langPt": "Português",
+  "langEn": "English",
+  "langSelect": "Select language",
+
+  "partOilChange": "Engine Oil",
+  "partBrakePads": "Brakes",
+  "partTires": "Tires",
+  "partBattery": "Battery",
+  "partFilters": "Filters",
+  "partCooling": "Cooling",
+
+  "navGarage": "Garage",
+  "navHistory": "History",
+  "navProfile": "Profile",
+
+  "dialogUpdateKmTitle": "Update Kilometrage",
+  "dialogUpdateKmLastRecorded": "Last recorded: {km} km",
+  "@dialogUpdateKmLastRecorded": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "dialogUpdateKmDescription": "Keep your odometer up to date to get accurate maintenance alerts.",
+  "dialogUpdateKmCancel": "Cancel",
+  "dialogUpdateKmSave": "Save",
+  "dialogUpdateKmError": "Invalid value or less than current.",
+
+  "historyOS": "Service Order",
+  "historyOSWithNumber": "Service Order #{osNumber}",
+  "@historyOSWithNumber": {
+    "placeholders": {
+      "osNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "historyOSDetails": "OS Details",
+  "historyMechanic": "Mechanic: {mechanic}",
+  "@historyMechanic": {
+    "placeholders": {
+      "mechanic": {
+        "type": "String"
+      }
+    }
+  },
+  "historyReplacedParts": "Parts & Services Replaced",
+  "historyValidity": "Validity: {km} km or {months} months",
+  "@historyValidity": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      },
+      "months": {
+        "type": "String"
+      }
+    }
+  },
+  "historyNoVehicleSelected": "No vehicle selected.",
+  "historyNoHistoryFound": "No maintenance history found.",
+
+  "notificationTitle": "Maintenance Alert ⚠️",
+  "notificationBody": "The part \"{partName}\" of your {vehicleName} has only {percent}% of remaining life. Schedule a service!",
+  "@notificationBody": {
+    "placeholders": {
+      "partName": {
+        "type": "String"
+      },
+      "vehicleName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "loginNoAccount": "Don't have an account? Sign Up",
+  "loginSignUp": "Sign Up",
+  "signUpTitle": "Create Account",
+  "signUpSubtitle": "Fill in the details to register",
+  "signUpName": "FULL NAME",
+  "signUpCpf": "CPF (numbers only)",
+  "signUpEmail": "EMAIL",
+  "signUpPassword": "PASSWORD",
+  "signUpConfirmPassword": "CONFIRM PASSWORD",
+  "signUpButton": "Register",
+  "signUpPasswordMismatch": "Passwords do not match.",
+  "signUpSuccess": "Account created successfully!",
+  "signUpError": "Error creating account: {error}",
+  "@signUpError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profileEditTitle": "Edit Profile",
+  "profileEditName": "Full Name",
+  "profileEditCpf": "CPF",
+  "profileEditSave": "Save",
+  "profileEditCancel": "Cancel",
+  "garageAddVehicle": "Add Vehicle",
+  "garageAddVehicleTitle": "Register Vehicle",
+  "garageAddPlate": "Plate (e.g. ABC-1234)",
+  "garageAddBrand": "Brand",
+  "garageAddModel": "Model",
+  "garageAddYear": "Year",
+  "garageAddInitialKm": "Current Mileage (Odometer)",
+  "garageAddSuccess": "Vehicle registered successfully!",
+  "profileRestoreTestData": "Restore test data",
+  "profileRestoreTestDataSuccess": "Test data successfully restored!",
+  "profileRestoreTestDataError": "Error restoring test data: {error}",
+  "@profileRestoreTestDataError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  }
+}

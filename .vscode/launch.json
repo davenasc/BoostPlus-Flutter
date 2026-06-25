@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "boost_plus",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define-from-file",
+        ".env"
+      ],
+      "toolArgs": [
+        "--dart-define-from-file",
+        ".env"
+      ]
+    },
+    {
+      "name": "boost_plus (Release mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "args": [
+        "--dart-define-from-file",
+        ".env"
+      ],
+      "toolArgs": [
+        "--dart-define-from-file",
+        ".env"
+      ]
+    }
+  ]
+}
